@@ -1,0 +1,3 @@
+interface OwlerOption {
+    pathName: string;
+}
