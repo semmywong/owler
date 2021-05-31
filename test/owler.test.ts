@@ -1,3 +1,5 @@
+import 'jest';
+import * as path from 'path';
 import Owler from '../src/owler';
 
 /**
@@ -10,9 +12,10 @@ describe('Owler Test', () => {
           div的内容
           <span>span的内容</span>
           <p o-if="false"></p>
+          <o-include src="./include.html"/>
         </div>`;
 
-        const owler = new Owler();
-        expect(owler.render(html)).toBeUndefined();
+        const owler = new Owler({ root: __dirname });
+        owler.render(html);
     });
 });

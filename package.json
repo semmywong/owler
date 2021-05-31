@@ -97,7 +97,7 @@
         "prompt": "^1.0.0",
         "replace-in-file": "^6.1.0",
         "rimraf": "^3.0.2",
-        "rollup": "^2.18.1",
+        "rollup": "^2.18.2",
         "rollup-plugin-commonjs": "^10.1.0",
         "rollup-plugin-json": "^4.0.0",
         "rollup-plugin-node-resolve": "^5.2.0",
@@ -112,7 +112,7 @@
         "tslint-config-prettier": "^1.15.0",
         "tslint-config-standard": "^9.0.0",
         "typedoc": "^0.17.8",
-        "typescript": "^3.0.3"
+        "typescript": "^3.9.6"
     },
     "repository": {
         "type": "git",

@@ -1,3 +1,6 @@
 interface OwlerOption {
-    pathName: string;
+    root: string;
+    views: string;
+    viewExt: string;
+    cache: Array<string>;
 }

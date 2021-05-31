@@ -12,7 +12,8 @@
         "emitDecoratorMetadata": true,
         "declarationDir": "dist/types",
         "outDir": "dist/lib",
-        "typeRoots": ["src/types"]
+        "types": ["jest", "node"],
+        "typeRoots": ["node_modules/@types", "src/types"]
     },
     "include": ["src"],
     "exclude": ["node_modules"]
