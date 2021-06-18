@@ -38,7 +38,7 @@ export default class OFor extends OTag {
             // data express is array
             for (let i = 0, iLen = data[dataExpression].length; i < iLen; i++) {
                 const element = data[dataExpression][i];
-                const newNodeData = Object.assign({}, data, { [alias]: element, [iterator ? iterator : '__oIndex__']: i });
+                const newNodeData = Object.assign({}, data, { [alias]: element, [iterator ? iterator : 'oIndex']: i });
                 nextIndex = index + i;
                 walkVisit(newNode, parent, nextIndex, newNodeData, options);
                 if (i < iLen - 1) {
@@ -54,8 +54,11 @@ export default class OFor extends OTag {
             let i = 0;
             for (const key in data[dataExpression]) {
                 if (Object.prototype.hasOwnProperty.call(data[dataExpression], key)) {
-                    const element = data[dataExpression][key];
-                    const newNodeData = Object.assign({}, data, { [alias]: element, [iterator ? iterator : '__oIndex__']: i });
+                    const value = data[dataExpression][key];
+                    const newNodeData = Object.assign({}, data, {
+                        [alias]: { [key]: value },
+                        [iterator ? iterator : 'oIndex']: i,
+                    });
                     nextIndex = index + i;
                     walkVisit(newNode, parent, nextIndex, newNodeData, options);
                     if (i < Object.keys(data[dataExpression]).length - 1) {

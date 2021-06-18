@@ -27,8 +27,12 @@ describe('Owler Test', () => {
             <o-include src="./include.html"></o-include>
             <o-include src="./include1.html"/>
             <input/>
-            <div class="o-for-of" o-for="item of dataList"></div>
-            <div class="o-for-in" o-for="item in dataObject"></div>
+            <div class="o-for-of" o-for="item of dataList">
+              <span>{{item}}</span>
+            </div>
+            <div class="o-for-in" o-for="item in dataObject">
+              <span o-text="item"></span>
+            </div>
           </div>
         </body>
         </html>`;
