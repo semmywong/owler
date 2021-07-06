@@ -1,12 +1,16 @@
 {
     "name": "owler",
-    "version": "0.0.2",
+    "version": "0.0.13",
     "author": "semmywong",
     "description": "",
     "keywords": [],
-    "main": "dist/owler.umd.js",
+    "main": "dist/owler.cjs.js",
     "module": "dist/owler.es5.js",
-    "typings": "dist/types/owler.d.ts",
+    "exports": {
+        "require": "./dist/owler.cjs.js",
+        "import": "./dist/owler.es5.js"
+    },
+    "typings": "dist/types/index.d.ts",
     "files": [
         "dist"
     ],

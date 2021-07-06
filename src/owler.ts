@@ -18,9 +18,16 @@ export default class Owler {
         Object.assign(this.defaultOptions, options);
     }
 
+    private parseDom(ast: Node[], data: any, options?: any) {
+        for (let i = 0; i < ast.length; i++) {
+            walkVisit(ast[i], void 0, i, data, options);
+        }
+    }
+
     /**
      *
      * @param html html string
+     * @param data data which use in html to render
      * @param options
      */
     public render(html: string, data: any = {}, options?: any) {
@@ -48,14 +55,9 @@ export default class Owler {
 
     /**
      *
-     * @param pathName will be rendered file path and file name.
+     * @param filePath will be rendered file path and file name.
+     * @param data data which use in html to render
      * @param options
      */
-    public renderFile(pathName: string, data: any, options?: any) {}
-
-    private parseDom(ast: Node[], data: any, options?: any) {
-        for (let i = 0; i < ast.length; i++) {
-            walkVisit(ast[i], void 0, i, data, options);
-        }
-    }
+    public renderFile(filePath: string, data: any, options?: any) {}
 }
