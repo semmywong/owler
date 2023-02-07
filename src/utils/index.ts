@@ -1,5 +1,12 @@
-import { DomHandler, Element, Node } from 'domhandler';
-import { SyntaxKind, SymbolTag } from '../common/constant';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-07 17:47:07
+ * @Description: global utils
+ */
+import { Element, Node } from 'domhandler';
+import { SymbolTag, SyntaxKind } from '../common/constant';
 import TagHandler from '../directive';
 
 export function walkVisit(node: Node, parent: Node | undefined, index: number, data: any, options?: any) {
