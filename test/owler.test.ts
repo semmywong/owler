@@ -1,8 +1,14 @@
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-09 16:51:10
+ * @Description: owler test
+ */
+import type { Document } from 'domhandler';
+import { parseDocument } from 'htmlparser2';
 import 'jest';
-import * as path from 'path';
 import Owler from '../src/owler';
-import { parseDOM } from 'htmlparser2';
-import { Element, Node } from 'domhandler';
 
 /**
  * Owler Test
@@ -36,8 +42,8 @@ describe('Owler Test', () => {
           </div>
         </body>
         </html>`;
-        const htmlAst: Node[] = parseDOM('你好，合理hell', { xmlMode: true });
-        const htmlAst1: Node[] = parseDOM(html.toString(), { xmlMode: true });
+        const htmlAst: Document = parseDocument('你好，合理hell', { xmlMode: true });
+        const htmlAst1: Document = parseDocument(html.toString(), { xmlMode: true });
         const owler = new Owler({ root: __dirname });
         owler.render(html, {
             dataList: [1, 2, 3, 4, 5],
