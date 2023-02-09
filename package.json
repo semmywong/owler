@@ -77,7 +77,8 @@
     "dependencies": {
         "domhandler": "^3.0.0",
         "domutils": "^2.1.0",
-        "htmlparser2": "^4.1.0"
+        "htmlparser2": "^4.1.0",
+        "json-templates": "^4.2.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^9.0.1",
