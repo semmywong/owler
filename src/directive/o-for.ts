@@ -1,12 +1,20 @@
-import { Element, Node } from 'domhandler';
-import { parseDOM } from 'htmlparser2';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-14 15:10:04
+ * @Description: for tag
+ */
+import type { AnyNode } from 'domhandler';
+import { Element } from 'domhandler';
 import * as DomUtils from 'domutils';
-import OTag from './o-tag';
+import { parseDOM } from 'htmlparser2';
 import { SymbolTag, SyntaxKind } from '../common/constant';
 import { walkVisit } from '../utils';
+import OTag from './o-tag';
 
 export default class OFor extends OTag {
-    parse(node: Node, parent: Node | undefined, index: number, data: any, options?: any) {
+    parse(node: AnyNode, parent: AnyNode | undefined, index: number, data: any, options?: any) {
         let nextIndex = index;
         const expression = (node as Element).attribs[SymbolTag.OFor];
         delete (node as Element).attribs[SymbolTag.OFor];

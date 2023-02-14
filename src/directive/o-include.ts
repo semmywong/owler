@@ -1,18 +1,26 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { parseDOM } from 'htmlparser2';
-import { Element, Node } from 'domhandler';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-14 15:12:48
+ * @Description: include tag
+ */
+import type { AnyNode, ChildNode } from 'domhandler';
+import { Element } from 'domhandler';
 import * as DomUtils from 'domutils';
+import * as fs from 'fs';
+import { parseDOM } from 'htmlparser2';
+import * as path from 'path';
 import OTag from './o-tag';
 
 export default class OInclude extends OTag {
-    parse(node: Node, parent: Node | undefined, index: number, data?: any, options?: OwlerOption) {
+    parse(node: AnyNode, parent: AnyNode | undefined, index: number, data?: any, options?: OwlerOption) {
         const attribs = (node as Element).attribs;
         if (!attribs['src']) {
             throw new Error('must be provide "src" attribute in the o-include tag.');
         }
         const html = fs.readFileSync(path.resolve(process.cwd(), options?.root ?? '', options?.views ?? '', attribs['src']));
-        const htmlAst: Node[] = parseDOM(html.toString(), this.parserOptions);
+        const htmlAst: ChildNode[] = parseDOM(html.toString(), this.parserOptions);
         let prevNode = node.previousSibling;
         let nextNode = node.nextSibling;
         DomUtils.removeElement(node);

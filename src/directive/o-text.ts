@@ -1,11 +1,19 @@
-import { Element, Node, DataNode } from 'domhandler';
-import { parseDOM } from 'htmlparser2';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-14 15:16:25
+ * @Description: text
+ */
+import type { AnyNode } from 'domhandler';
+import { DataNode, Element, Node } from 'domhandler';
 import * as DomUtils from 'domutils';
-import OTag from './o-tag';
+import { parseDOM } from 'htmlparser2';
 import { SymbolTag } from '../common/constant';
+import OTag from './o-tag';
 
 export default class OText extends OTag {
-    parse(node: Node, parent: Node | undefined, index: number, data?: any, options?: any) {
+    parse(node: AnyNode, parent: AnyNode | undefined, index: number, data?: any, options?: any) {
         const expression = (node as Element).attribs[SymbolTag.OText];
         delete (node as Element).attribs[SymbolTag.OText];
         let result: string = '';

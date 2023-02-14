@@ -1,7 +1,15 @@
-import { Parser } from 'htmlparser2';
-import { DomHandler, Node } from 'domhandler';
-import * as DomUtils from 'domutils';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-14 15:22:23
+ * @Description: owler main class
+ */
 import * as crypto from 'crypto';
+import type { AnyNode } from 'domhandler';
+import { DomHandler } from 'domhandler';
+import * as DomUtils from 'domutils';
+import { Parser } from 'htmlparser2';
 import { walkVisit } from './utils';
 
 export default class Owler {
@@ -18,7 +26,7 @@ export default class Owler {
         Object.assign(this.defaultOptions, options);
     }
 
-    private parseDom(ast: Node[], data: any, options?: any) {
+    private parseDom(ast: AnyNode[], data: any, options?: any) {
         for (let i = 0; i < ast.length; i++) {
             walkVisit(ast[i], void 0, i, data, options);
         }

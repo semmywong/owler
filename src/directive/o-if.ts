@@ -1,19 +1,27 @@
-import { Element, Node } from 'domhandler';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-01-29 15:22:28
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-02-14 15:10:46
+ * @Description: if tag
+ */
+import type { AnyNode } from 'domhandler';
+import { Element } from 'domhandler';
 import * as DomUtils from 'domutils';
 import { SymbolTag, SyntaxKind } from '../common/constant';
 import OTag from './o-tag';
 
 export default class OIf extends OTag {
-    parse(node: Node, parent: Node | undefined, index: number, data: any, options?: any): Node | undefined | null {
+    parse(node: AnyNode, parent: AnyNode | undefined, index: number, data: any, options?: any): AnyNode | undefined | null {
         this.oIfParse(SymbolTag.OIf, node, parent, data, options);
-        let returnNode: Node | null = (parent as Element)?.children?.[index] ?? parent?.nextSibling;
+        let returnNode: AnyNode | null = (parent as Element)?.children?.[index] ?? parent?.nextSibling;
         while (returnNode?.type.toLocaleLowerCase() === SyntaxKind.Text) {
             returnNode = returnNode.nextSibling;
         }
         return returnNode ?? parent;
     }
 
-    private oIfParse(tag: string, node: Node, parent: Node | undefined, data: any, options?: any) {
+    private oIfParse(tag: string, node: AnyNode, parent: AnyNode | undefined, data: any, options?: any) {
         const expression = (node as Element).attribs[tag];
         let result = true;
         try {
