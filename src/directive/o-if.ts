@@ -1,7 +1,7 @@
 import { Element, Node } from 'domhandler';
 import * as DomUtils from 'domutils';
-import OTag from './o-tag';
 import { SymbolTag, SyntaxKind } from '../common/constant';
+import OTag from './o-tag';
 
 export default class OIf extends OTag {
     parse(node: Node, parent: Node | undefined, index: number, data: any, options?: any): Node | undefined | null {

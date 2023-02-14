@@ -4,5 +4,14 @@
   "printWidth": 130,
   "tabWidth": 4,
   "trailingComma": "all",
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "useTabs": false,
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": ".prettierrc",
+      "options": { "parser": "json" }
+    }
+  ]
 }
