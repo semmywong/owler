@@ -2,7 +2,7 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-02-09 16:51:10
+ * @LastEditTime: 2023-03-02 22:11:15
  * @Description: owler test
  */
 import type { Document } from 'domhandler';
@@ -21,6 +21,22 @@ describe('Owler Test', () => {
         <head>
         <meta charset="utf-8"/>
         <link rel="dns-prefetch" href="https://github.githubassets.com"/>
+        <script>
+          const a = 'asdfasdfasdf';
+          console.log(a);
+          function testFunc(){
+            console.log('testFunc');
+          }
+          testFunc();
+        </script>
+        <style>
+          .test {
+            color:#445566;
+          }
+          .test1 {
+            color:#445566;
+          }
+        </style>
         </head>
         <body>
           <div>
@@ -37,15 +53,31 @@ describe('Owler Test', () => {
               <span>{{item}}</span>
             </div>
             <div class="o-for-in" o-for="item in dataObject">
-              <span o-text="item"></span>
+              <span o-text="item">{{item.a}}</span>
             </div>
           </div>
+          <script>
+          const a = 'asdfasdfasdf';
+          console.log(a);
+          function testFunc(){
+            console.log('testFunc');
+          }
+          testFunc();
+        </script>
+        <style>
+          .test {
+            color:#445566;
+          }
+          .test1 {
+            color:#445566;
+          }
+        </style>
         </body>
         </html>`;
         const htmlAst: Document = parseDocument('你好，合理hell', { xmlMode: true });
         const htmlAst1: Document = parseDocument(html.toString(), { xmlMode: true });
         const owler = new Owler({ root: __dirname });
-        owler.render(html, {
+        const renderHTML = owler.render(html, {
             dataList: [1, 2, 3, 4, 5],
             dataObject: { a: 1, b: 2 },
             name: 'semmy',
@@ -53,5 +85,6 @@ describe('Owler Test', () => {
             student: 'i am student',
             test: 'test',
         });
+        console.log(renderHTML);
     });
 });
