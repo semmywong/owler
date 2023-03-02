@@ -2,13 +2,13 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-02-14 15:22:23
+ * @LastEditTime: 2023-03-02 21:27:14
  * @Description: owler main class
  */
-import * as crypto from 'crypto';
+import crypto from 'crypto';
+import render from 'dom-serializer';
 import type { AnyNode } from 'domhandler';
 import { DomHandler } from 'domhandler';
-import * as DomUtils from 'domutils';
 import { Parser } from 'htmlparser2';
 import { walkVisit } from './utils';
 
@@ -50,7 +50,7 @@ export default class Owler {
                 throw error;
             } else {
                 this.parseDom(ast, data, Object.assign({}, this.defaultOptions, options));
-                renderHtml = DomUtils.getOuterHTML(ast);
+                renderHtml = render(ast);
             }
         });
         const parser = new Parser(handler, { xmlMode: true });

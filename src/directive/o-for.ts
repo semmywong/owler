@@ -2,13 +2,14 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-02-14 15:10:04
+ * @LastEditTime: 2023-03-02 20:55:34
  * @Description: for tag
  */
+import render from 'dom-serializer';
 import type { AnyNode } from 'domhandler';
 import { Element } from 'domhandler';
 import * as DomUtils from 'domutils';
-import { parseDOM } from 'htmlparser2';
+import { parseDocument } from 'htmlparser2';
 import { SymbolTag, SyntaxKind } from '../common/constant';
 import { walkVisit } from '../utils';
 import OTag from './o-tag';
@@ -39,7 +40,7 @@ export default class OFor extends OTag {
         } else {
             throw new Error('o-for express error.');
         }
-        const itemHtml = DomUtils.getOuterHTML(node);
+        const itemHtml = render(node);
 
         let newNode = node;
         if (loopSymbol === 'of') {
@@ -50,7 +51,7 @@ export default class OFor extends OTag {
                 nextIndex = index + i;
                 walkVisit(newNode, parent, nextIndex, newNodeData, options);
                 if (i < iLen - 1) {
-                    const doms = parseDOM(itemHtml, this.parserOptions).filter(
+                    const doms = parseDocument(itemHtml, this.parserOptions).children.filter(
                         (dom) => dom?.type.toLocaleLowerCase() === SyntaxKind.Tag,
                     );
                     DomUtils.append(newNode, doms[0]);
@@ -70,7 +71,7 @@ export default class OFor extends OTag {
                     nextIndex = index + i;
                     walkVisit(newNode, parent, nextIndex, newNodeData, options);
                     if (i < Object.keys(data[dataExpression]).length - 1) {
-                        const doms = parseDOM(itemHtml, this.parserOptions).filter(
+                        const doms = parseDocument(itemHtml, this.parserOptions).children.filter(
                             (dom) => dom?.type.toLocaleLowerCase() === SyntaxKind.Tag,
                         );
                         DomUtils.append(newNode, doms[0]);
