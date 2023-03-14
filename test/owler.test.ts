@@ -2,9 +2,10 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-03-02 22:11:15
+ * @LastEditTime: 2023-03-14 19:23:05
  * @Description: owler test
  */
+import crypto from 'crypto';
 import type { Document } from 'domhandler';
 import { parseDocument } from 'htmlparser2';
 import 'jest';
@@ -14,8 +15,7 @@ import Owler from '../src/owler';
  * Owler Test
  */
 describe('Owler Test', () => {
-    it('html will be render correct!', () => {
-        const html = `
+    const html = `
         <!DOCTYPE html>
         <html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
         <head>
@@ -74,6 +74,7 @@ describe('Owler Test', () => {
         </style>
         </body>
         </html>`;
+    it('html will be render correct!', () => {
         const htmlAst: Document = parseDocument('你好，合理hell', { xmlMode: true });
         const htmlAst1: Document = parseDocument(html.toString(), { xmlMode: true });
         const owler = new Owler({ root: __dirname });
@@ -86,5 +87,26 @@ describe('Owler Test', () => {
             test: 'test',
         });
         console.log(renderHTML);
+    });
+
+    it('crypto test', () => {
+        console.log('========1', crypto.createHash('md5').update(html, 'utf8').digest('hex'));
+        console.log(
+            '========2',
+            crypto
+                .createHash('md5')
+                .update(html, 'utf8')
+                .update(JSON.stringify({ a: 'aa', b: 'bb', c: 123 }))
+                .digest('hex'),
+        );
+        Buffer.from('test');
+        console.log(
+            '========3',
+            crypto
+                .createHash('md5')
+                .update(html, 'utf8')
+                .update(JSON.stringify({ a: 'aa', b: 'bb', c: 1233 }))
+                .digest('hex'),
+        );
     });
 });
