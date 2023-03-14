@@ -2,24 +2,26 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-03-02 21:27:14
+ * @LastEditTime: 2023-03-14 19:36:32
  * @Description: owler main class
  */
 import crypto from 'crypto';
 import render from 'dom-serializer';
 import type { AnyNode } from 'domhandler';
 import { DomHandler } from 'domhandler';
+import fs from 'fs';
 import { Parser } from 'htmlparser2';
+import path from 'path';
 import { walkVisit } from './utils';
 
 export default class Owler {
     /** cache page */
     private caches: Map<string, string> = new Map();
 
-    private defaultOptions: Partial<OwlerOption> = {
+    private defaultOptions: OwlerOption = {
         root: './',
         views: './',
-        viewExt: 'html',
+        viewExt: '.html',
     };
 
     constructor(options?: any) {
@@ -39,7 +41,7 @@ export default class Owler {
      * @param options
      */
     public render(html: string, data: any = {}, options?: any) {
-        let md5Value = crypto.createHash('md5').update(html, 'utf8').digest('hex');
+        let md5Value = crypto.createHash('md5').update(html, 'utf8').update(JSON.stringify(data)).digest('hex');
         let renderHtml = this.caches.get(md5Value) ?? '';
         if (renderHtml) {
             return renderHtml;
@@ -67,5 +69,9 @@ export default class Owler {
      * @param data data which use in html to render
      * @param options
      */
-    public renderFile(filePath: string, data: any, options?: any) {}
+    public renderFile(filePath: string, data: any, options?: any) {
+        const { root, views, viewExt } = this.defaultOptions;
+        const content = fs.readFileSync(path.join(root, views, `${filePath}${viewExt}`), 'utf8');
+        return this.render(content, data, options);
+    }
 }
