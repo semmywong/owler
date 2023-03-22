@@ -2,18 +2,22 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-03-02 20:55:34
+ * @LastEditTime: 2023-03-22 09:30:32
  * @Description: for tag
  */
 import render from 'dom-serializer';
 import type { AnyNode } from 'domhandler';
 import { Element } from 'domhandler';
-import * as DomUtils from 'domutils';
+import { append } from 'domutils';
 import { parseDocument } from 'htmlparser2';
 import { SymbolTag, SyntaxKind } from '../common/constant';
 import { walkVisit } from '../utils';
 import OTag from './o-tag';
 
+export enum LoopSymbol {
+    In = 'in',
+    Of = 'of',
+}
 export default class OFor extends OTag {
     parse(node: AnyNode, parent: AnyNode | undefined, index: number, data: any, options?: any) {
         let nextIndex = index;
@@ -43,7 +47,7 @@ export default class OFor extends OTag {
         const itemHtml = render(node);
 
         let newNode = node;
-        if (loopSymbol === 'of') {
+        if (loopSymbol === LoopSymbol.Of) {
             // data express is array
             for (let i = 0, iLen = data[dataExpression].length; i < iLen; i++) {
                 const element = data[dataExpression][i];
@@ -54,11 +58,11 @@ export default class OFor extends OTag {
                     const doms = parseDocument(itemHtml, this.parserOptions).children.filter(
                         (dom) => dom?.type.toLocaleLowerCase() === SyntaxKind.Tag,
                     );
-                    DomUtils.append(newNode, doms[0]);
+                    append(newNode, doms[0]);
                     newNode = doms[0];
                 }
             }
-        } else if (loopSymbol === 'in') {
+        } else if (loopSymbol === LoopSymbol.In) {
             // data express is object
             let i = 0;
             for (const key in data[dataExpression]) {
@@ -74,7 +78,7 @@ export default class OFor extends OTag {
                         const doms = parseDocument(itemHtml, this.parserOptions).children.filter(
                             (dom) => dom?.type.toLocaleLowerCase() === SyntaxKind.Tag,
                         );
-                        DomUtils.append(newNode, doms[0]);
+                        append(newNode, doms[0]);
                         newNode = doms[0];
                     }
                 }

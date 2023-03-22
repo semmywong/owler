@@ -2,12 +2,12 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-02-14 15:10:46
+ * @LastEditTime: 2023-03-22 09:30:02
  * @Description: if tag
  */
 import type { AnyNode } from 'domhandler';
 import { Element } from 'domhandler';
-import * as DomUtils from 'domutils';
+import { removeElement } from 'domutils';
 import { SymbolTag, SyntaxKind } from '../common/constant';
 import OTag from './o-tag';
 
@@ -43,7 +43,7 @@ export default class OIf extends OTag {
                 }
                 const attribs = (nextNode as Element).attribs ?? {};
                 if (SymbolTag.OElseIf in attribs || SymbolTag.OElse in attribs) {
-                    DomUtils.removeElement(nextNode);
+                    removeElement(nextNode);
                     nextNode = nextNode.nextSibling;
                 } else {
                     break;
@@ -52,7 +52,7 @@ export default class OIf extends OTag {
         } else {
             //remove current node
             let nextNode = node.nextSibling;
-            DomUtils.removeElement(node);
+            removeElement(node);
 
             while (nextNode?.type.toLocaleLowerCase() === SyntaxKind.Text) {
                 nextNode = nextNode.nextSibling;

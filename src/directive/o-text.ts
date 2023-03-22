@@ -2,13 +2,13 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-03-02 21:26:43
+ * @LastEditTime: 2023-03-22 09:28:43
  * @Description: text
  */
 import type { AnyNode } from 'domhandler';
 import { DataNode, Element, Node } from 'domhandler';
-import * as DomUtils from 'domutils';
-import { parseDOM } from 'htmlparser2';
+import { appendChild } from 'domutils';
+import { parseDocument } from 'htmlparser2';
 import jsonParse from 'json-templates';
 import { SymbolTag } from '../common/constant';
 import OTag from './o-tag';
@@ -25,8 +25,8 @@ export default class OText extends OTag {
             console.error(error);
             throw new Error(`can not execute expression '${expression}'`);
         }
-        const newNodes = parseDOM(result, this.parserOptions);
-        newNodes?.forEach((n) => DomUtils.appendChild(node as Element, n));
+        const newNodes = parseDocument(result, this.parserOptions).childNodes;
+        newNodes?.forEach((n) => appendChild(node as Element, n));
         return node;
     }
     parseTextBlock(node: Node, parent: Node | undefined, index: number, data?: any, options?: any): Node {
