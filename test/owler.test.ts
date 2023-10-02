@@ -2,7 +2,7 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-03-14 19:23:05
+ * @LastEditTime: 2023-09-22 21:12:48
  * @Description: owler test
  */
 import crypto from 'crypto';
@@ -24,6 +24,7 @@ describe('Owler Test', () => {
         <script>
           const a = 'asdfasdfasdf';
           console.log(a);
+          console.log({{name}});
           function testFunc(){
             console.log('testFunc');
           }
@@ -43,6 +44,7 @@ describe('Owler Test', () => {
             div的内容
             <span>span的内容</span>
             <br/>
+            <input placeholder="33333">
             <span o-text="name"></span>
             <p o-if="true">{{name}},{{age}}</p>
             <article>{{student}}</article>
@@ -53,7 +55,10 @@ describe('Owler Test', () => {
               <span>{{item}}</span>
             </div>
             <div class="o-for-in" o-for="item in dataObject">
-              <span o-text="item">{{item.a}}</span>
+              <span>{{item.a:aaa}}</span>
+            </div>
+            <div class="o-for-in" o-for="(key,value) in dataObject">
+              <span>{{key:aaa}},{{value:bbb}}</span>
             </div>
           </div>
           <script>

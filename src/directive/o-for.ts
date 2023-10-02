@@ -2,7 +2,7 @@
  * @Author: Semmy Wong
  * @Date: 2023-01-29 15:22:28
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-03-22 09:36:19
+ * @LastEditTime: 2023-09-22 21:22:13
  * @Description: for tag
  */
 import render from 'dom-serializer';
@@ -34,11 +34,11 @@ export default class OFor extends OTag {
             loopSymbol = match[2].trim();
             const itMatch = match[1].match(/\((.*),(.*)\)/);
             if (itMatch) {
-                // o-for="(k,v) in array", iterator is 'k', alias is 'v'
+                // o-for="(k,v) in/of object/array", iterator is 'k', alias is 'v'
                 iterator = itMatch[1].trim();
                 alias = itMatch[2].trim();
             } else {
-                // o-for="ele in array", alias is 'ele'
+                // o-for="item in/of object/array", alias is 'item'
                 alias = match[1].trim();
             }
         } else {
@@ -68,10 +68,14 @@ export default class OFor extends OTag {
             for (const key in data[dataExpression]) {
                 if (Object.prototype.hasOwnProperty.call(data[dataExpression], key)) {
                     const value = data[dataExpression][key];
-                    const newNodeData = Object.assign({}, data, {
-                        [alias]: { [key]: value },
-                        [iterator ? iterator : 'oIndex']: i,
-                    });
+                    const loopItem: any = { oIndex: i };
+                    if (iterator) {
+                        loopItem[iterator] = key;
+                        loopItem[alias] = value;
+                    } else {
+                        loopItem[alias] = { [key]: value };
+                    }
+                    const newNodeData = Object.assign({}, data, loopItem);
                     nextIndex = index + i;
                     walkVisit(newNode, parent, nextIndex, newNodeData, options);
                     if (i < Object.keys(data[dataExpression]).length - 1) {

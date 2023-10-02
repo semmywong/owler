@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-        "moduleResolution": "node",
-        "target": "es5",
-        "module": "es2015",
+        "moduleResolution": "NodeNext",
+        "target": "esnext",
+        "module": "esnext",
         "lib": ["es2015", "es2016", "es2017", "dom"],
         "strict": true,
         "sourceMap": true,
         "declaration": true,
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop":true,
+        "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "declarationDir": "dist/types",
@@ -16,6 +16,6 @@
         "types": ["jest", "node"],
         "typeRoots": ["node_modules/@types", "src/types"]
     },
-    "include": ["src"],
+    "include": ["src/**/*", "rollup.config.ts"],
     "exclude": ["node_modules", "dist"]
 }
